@@ -1,0 +1,14 @@
+# sbt
+lib_managed/
+project/project
+target/
+logs/
+
+# IntelliJ
+.idea/
+
+# Mac
+.DS_Store
+
+# Log files
+*.log
