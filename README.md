@@ -12,7 +12,6 @@ This is a playground project with a simple k8s setup
 Docker-compose prepares the Docker images used in this project
 ```
 docker-compose build
-docker-compose up -d
 ```
 
 ### kompose
@@ -24,7 +23,7 @@ curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-
 
 ### Update the configs
 Changelog
-- don't try to pull the app image from remote Docker registry
+- don't lookup the app image in the remote Docker registry, it is built locally
 - expose MySQL to other pods in the cluster
 
 ### Run on Kubernetes
@@ -34,6 +33,7 @@ kubectl apply -f k8s/db-data-persistentvolumeclaim.yaml,k8s/db-deployment.yaml
 kubectl apply -f k8s/pma-deployment.yaml,k8s/pma-service.yaml
 kubectl apply -f k8s/app-deployment.yaml,k8s/app-service.yaml
 kubectl get pods
+kubectl proxy # in a separate terminal
 
 # get logs
 kubectl logs app-757b866576-sdg4q -f
@@ -42,5 +42,8 @@ kubectl logs app-757b866576-sdg4q -f
 curl http://localhost:8001/api/v1/namespaces/default/pods/pma-7f856985d9-r94n5/proxy/
 
 # check app
-curl http://localhost:8001/api/v1/namespaces/default/pods/app-757b866576-sdg4q/proxy/
+curl http://localhost:8001/api/v1/namespaces/default/pods/app-86f5ccd9bc-kms9v/proxy/
+
+# restart app
+kubectl -n default rollout restart deployment app
 ```

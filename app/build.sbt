@@ -22,6 +22,7 @@ lazy val root = (project in file("."))
     // build fatjar
     mainClass in assembly := Some("play.core.server.ProdServerStart"),
     fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value),
+    test in assembly := {},
     assemblyJarName in assembly := "app.jar",
     assemblyMergeStrategy in assembly := {
       case PathList("reference.conf") => MergeStrategy.concat
