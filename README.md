@@ -13,3 +13,9 @@ This is a playground project with a simple k8s cluster
 docker-compose build
 docker-compose up -d
 ```
+
+### kompose
+I used kompose to convert docker-compose to Kubernetes configs
+```
+kompose convert
+```
