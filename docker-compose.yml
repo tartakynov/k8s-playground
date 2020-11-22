@@ -28,7 +28,8 @@ services:
   app:
     depends_on:
       - db
-    build: .
+    build:
+      context: ./app
     image: k8s-playground-app:latest
     ports:
       - "9000:9000"
