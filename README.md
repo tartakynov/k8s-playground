@@ -4,7 +4,7 @@ This is a playground project with a simple k8s setup for Docker for Mac
 - web application written in Scala (initialized from this [archetype](<https://github.com/playframework/play-scala-isolated-slick-example/>))
 - phpMyAdmin
 - MySQL database
-- NGINX Ingress Controller
+- NGINX Ingress
   - http://kubernetes.docker.internal/app/ - web app
   - http://kubernetes.docker.internal/pma/ - phpMyAdmin
 
