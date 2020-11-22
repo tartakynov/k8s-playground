@@ -1,6 +1,6 @@
 # k8s playground
 
-This is a playground project with a simple k8s setup
+This is a playground project with a simple k8s setup for Docker for Mac
 - web application written in Scala (initialized from this [archetype](<https://github.com/playframework/play-scala-isolated-slick-example/>))
 - phpMyAdmin
 - MySQL database
@@ -23,7 +23,8 @@ curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-
 ### Update the configs
 Changelog
 - don't lookup the app image in the remote Docker registry, it is built locally
-- expose MySQL to other pods in the cluster
+- add db service to expose MySQL to other pods in the cluster
+- add ingress resource
 
 ### Run on Kubernetes
 After making changes to the bootstrapped configs, it's time to run the app on the cluster
@@ -45,4 +46,17 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/app-86f5ccd9bc-kms9v/p
 
 # restart app
 kubectl -n default rollout restart deployment app
+```
+
+### Run Ingress (WIP)
+Initialize Ingress
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
+```
+
+Apply ingress config
+```
+kubectl apply -f k8s/ingress-resource.yaml
+curl --insecure http://kubernetes.docker.internal/pma/
+curl --insecure http://kubernetes.docker.internal/app/
 ```
