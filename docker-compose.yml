@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+
+  pma:
+    image: phpmyadmin/phpmyadmin:4.9
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - "8080:80"
+
+#  app:
+#    depends_on:
+#      - db
+#    image: k8s-playground-app:latest
+#    ports:
+#      - "9000:80"
+#    restart: always
+#    environment:
+#      DB_HOST: db:3306
+#      DB_USER: myuser
+#      DB_PASSWORD: mypassword
+#      DB_NAME: mydb
+volumes:
+  db_data: {}
