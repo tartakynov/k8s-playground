@@ -5,8 +5,8 @@ This is a playground project with a simple k8s setup for Docker for Mac
 - phpMyAdmin
 - MySQL database
 - NGINX Ingress Controller
-  - `/app/` - web app
-  - `/pma/` - phpMyAdmin
+  - http://kubernetes.docker.internal/app/ - web app
+  - http://kubernetes.docker.internal/pma/ - phpMyAdmin
 
 ### Build
 Docker-compose prepares the Docker images used in this project
