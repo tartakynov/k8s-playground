@@ -49,13 +49,13 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/app-86f5ccd9bc-kms9v/p
 kubectl -n default rollout restart deployment app
 ```
 
-### Run Ingress (WIP)
+### Run Ingress
 Initialize Ingress
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
-Apply ingress config
+Apply Ingress config
 ```
 kubectl apply -f k8s/ingress-resource.yaml
 curl http://kubernetes.docker.internal/pma/
