@@ -25,6 +25,7 @@ Changelog
 - don't lookup the app image in the remote Docker registry, it is built locally
 - add db service to expose MySQL to other pods in the cluster
 - add ingress resource
+- set phpMyAdmin absolute URL to `http://kubernetes.docker.internal/pma/`, otherwise it does not include the prefix (`pma/`) when redirecting to pages
 
 ### Run on Kubernetes
 After making changes to the bootstrapped configs, it's time to run the app on the cluster
@@ -57,6 +58,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 Apply ingress config
 ```
 kubectl apply -f k8s/ingress-resource.yaml
-curl --insecure http://kubernetes.docker.internal/pma/
-curl --insecure http://kubernetes.docker.internal/app/
+curl http://kubernetes.docker.internal/pma/
+curl http://kubernetes.docker.internal/app/
 ```
