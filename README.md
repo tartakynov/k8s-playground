@@ -28,29 +28,26 @@ Changelog
 - set phpMyAdmin absolute URL to `http://kubernetes.docker.internal/pma/`, otherwise it does not include the prefix (`pma/`) when redirecting to pages
 
 ### Run on Kubernetes
-After making changes to the bootstrapped configs, it's time to run the app on the cluster
+After making changes to the bootstrapped configs, it's time to run the apps on the cluster
 ```
 kubectl apply -f k8s/db-data-persistentvolumeclaim.yaml,k8s/db-deployment.yaml
 kubectl apply -f k8s/pma-deployment.yaml,k8s/pma-service.yaml
 kubectl apply -f k8s/app-deployment.yaml,k8s/app-service.yaml
+
+# verify that our pods are running
 kubectl get pods
-kubectl proxy # in a separate terminal
-
-# get logs
 kubectl logs app-757b866576-sdg4q -f
-
-# check PMA
+kubectl proxy # in a separate terminal
 curl http://localhost:8001/api/v1/namespaces/default/pods/pma-7f856985d9-r94n5/proxy/
-
-# check app
 curl http://localhost:8001/api/v1/namespaces/default/pods/app-86f5ccd9bc-kms9v/proxy/
 
-# restart app
+# after making changes in the apps code rebuild the image and restart
+docker-compose build
 kubectl -n default rollout restart deployment app
 ```
 
 ### Run Ingress
-Initialize Ingress
+Initialize Ingress (if it's the first time running Ingress in the Docker for Mac cluster)
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
 ```
@@ -58,6 +55,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 Apply Ingress config
 ```
 kubectl apply -f k8s/ingress-resource.yaml
+
+# verify that Ingress is serving our apps
 curl http://kubernetes.docker.internal/pma/
 curl http://kubernetes.docker.internal/app/
 ```
