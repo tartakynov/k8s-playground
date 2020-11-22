@@ -36,7 +36,7 @@ spec:
         - name: DB_USER
           value: myuser
         image: k8s-playground-app:latest
-        imagePullPolicy: ""
+        imagePullPolicy: Never
         name: app
         ports:
         - containerPort: 9000
