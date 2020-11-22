@@ -25,6 +25,7 @@ curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-
 ### Update the configs
 Changelog
 - don't try to pull the app image from remote Docker registry
+- expose MySQL to other pods in the cluster
 
 ### Run on Kubernetes
 After making changes to the bootstrapped configs, it's time to run the app on the cluster
@@ -32,8 +33,14 @@ After making changes to the bootstrapped configs, it's time to run the app on th
 kubectl apply -f k8s/db-data-persistentvolumeclaim.yaml,k8s/db-deployment.yaml
 kubectl apply -f k8s/pma-deployment.yaml,k8s/pma-service.yaml
 kubectl apply -f k8s/app-deployment.yaml,k8s/app-service.yaml
+kubectl get pods
 
 # get logs
-kubectl get pods
-kubectl logs app-d7c779d4c-lfl9r -f
+kubectl logs app-757b866576-sdg4q -f
+
+# check PMA
+curl http://localhost:8001/api/v1/namespaces/default/pods/pma-7f856985d9-r94n5/proxy/
+
+# check app
+curl http://localhost:8001/api/v1/namespaces/default/pods/app-757b866576-sdg4q/proxy/
 ```
