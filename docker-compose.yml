@@ -3,8 +3,8 @@ version: '3.3'
 services:
   db:
     image: mysql:5.7
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -25,17 +25,19 @@ services:
     ports:
       - "8080:80"
 
-#  app:
-#    depends_on:
-#      - db
-#    image: k8s-playground-app:latest
-#    ports:
-#      - "9000:80"
-#    restart: always
-#    environment:
-#      DB_HOST: db:3306
-#      DB_USER: myuser
-#      DB_PASSWORD: mypassword
-#      DB_NAME: mydb
+  app:
+    depends_on:
+      - db
+    build: .
+    image: k8s-playground-app:latest
+    ports:
+      - "9000:9000"
+    restart: always
+    environment:
+      DB_HOST: db:3306
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_NAME: mydb
+      APPLICATION_SECRET: p4EJZg5rzl1xDSAMdGJfLUXKrFYozhrEpl5WSV4quyNouQPAtvlTFXwQBWE8J1wX
 volumes:
   db_data: {}

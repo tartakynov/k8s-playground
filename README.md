@@ -7,3 +7,10 @@ This is a playground project with a simple k8s cluster
 - NGINX Ingress Controller
   - `/app/` - web app
   - `/pma/` - phpMyAdmin
+
+### docker-compose
+```
+sbt assembly
+docker-compose build
+docker-compose up -d
+```
