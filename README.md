@@ -9,13 +9,15 @@ This is a playground project with a simple k8s cluster
   - `/pma/` - phpMyAdmin
 
 ### docker-compose
+Docker-compose prepares the Docker images used in this project
 ```
 docker-compose build
 docker-compose up -d
 ```
 
 ### kompose
-I used kompose to convert docker-compose to Kubernetes configs
+Also, I used docker-compose to bootstrap Kubernetes configs with kompose
 ```
-kompose convert
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-darwin-amd64 -o kompose
+./kompose convert -o k8s/
 ```
