@@ -29,15 +29,27 @@ spec:
           value: db:3306
         - name: DB_NAME
           value: mydb
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: k8s-secrets
+              key: MYSQL_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: k8s-secrets
+              key: MYSQL_PASSWORD
+        - name: APPLICATION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: k8s-secrets
+              key: APPLICATION_SECRET
         image: k8s-playground-webapp:latest
         imagePullPolicy: Never
         name: webapp
         ports:
         - containerPort: 9000
         resources: {}
-        envFrom:
-          - secretRef:
-              name: k8s-secrets
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
