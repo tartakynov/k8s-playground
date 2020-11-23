@@ -1,12 +1,14 @@
 # k8s playground
 
-This is a playground project with a simple k8s setup for Docker for Mac
-- [web application](PLAY.md) written in Scala
+This is a playground project used to demonstrate how to run a Play Framework web application on Kubernetes with Docker for Mac. For educational purposes only.
+
+We'll be running the following apps on Kubernetes
+- a [web application](PLAY.md) written in Scala
 - phpMyAdmin
 - MySQL database
 - NGINX Ingress
-  - http://kubernetes.docker.internal/app/ - web app
-  - http://kubernetes.docker.internal/pma/ - phpMyAdmin
+  - the web app will be available via http://kubernetes.docker.internal/app/
+  - phpMyAdmin will be available via http://kubernetes.docker.internal/pma/
 
 ### Build
 Docker-compose prepares the Docker images used in this project
@@ -47,16 +49,16 @@ kubectl -n default rollout restart deployment app
 ```
 
 ### Run Ingress
-Initialize Ingress (if it's the first time running Ingress in the Docker for Mac cluster)
+Initialize Ingress in the Docker for Mac cluster
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
-Apply Ingress config
+Apply configs to expose phpMyAdmin and the webapp to host via Ingress
 ```
 kubectl apply -f k8s/ingress-resource.yaml
 
-# verify that Ingress is serving our apps
-curl http://kubernetes.docker.internal/pma/
+# verify that Ingress is serving both the webapp and PMA
 curl http://kubernetes.docker.internal/app/
+curl http://kubernetes.docker.internal/pma/
 ```
