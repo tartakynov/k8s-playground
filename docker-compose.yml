@@ -23,11 +23,11 @@ services:
     ports:
       - "8080:80"
 
-  app:
+  webapp:
     depends_on:
       - db
     build:
-      context: ./app
+      context: ./webapp
     image: k8s-playground-app:latest
     ports:
       - "9000:9000"

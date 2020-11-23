@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: app
-  name: app
+    io.kompose.service: webapp
+  name: webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: app
+      io.kompose.service: webapp
   strategy: {}
   template:
     metadata:
@@ -21,7 +21,7 @@ spec:
         kompose.version: 1.21.0 (992df58d8)
       creationTimestamp: null
       labels:
-        io.kompose.service: app
+        io.kompose.service: webapp
     spec:
       containers:
       - env:
@@ -35,9 +35,9 @@ spec:
           value: mypassword
         - name: DB_USER
           value: myuser
-        image: k8s-playground-app:latest
+        image: k8s-playground-webapp:latest
         imagePullPolicy: Never
-        name: app
+        name: webapp
         ports:
         - containerPort: 9000
         resources: {}
@@ -54,14 +54,14 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: app
-  name: app
+    io.kompose.service: webapp
+  name: webapp
 spec:
   ports:
     - name: "9000"
       port: 9000
       targetPort: 9000
   selector:
-    io.kompose.service: app
+    io.kompose.service: webapp
 status:
   loadBalancer: {}

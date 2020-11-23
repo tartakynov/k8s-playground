@@ -7,7 +7,7 @@ We'll be running the following apps on Kubernetes
 - phpMyAdmin
 - MySQL database
 - NGINX Ingress
-  - the web app will be available via http://kubernetes.docker.internal/app/
+  - the web app will be available via http://kubernetes.docker.internal/webapp/
   - phpMyAdmin will be available via http://kubernetes.docker.internal/pma/
 
 ### Build
@@ -24,7 +24,7 @@ curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-
 
 ### Update the configs
 Changelog
-- don't lookup the app image in the remote Docker registry, it is built locally
+- don't lookup the webapp's image in the remote Docker registry, it is built locally
 - add db service to expose MySQL to other pods in the cluster
 - add ingress resource
 - set phpMyAdmin absolute URL to `http://kubernetes.docker.internal/pma/`, otherwise it does not include the prefix (`pma/`) when redirecting to pages
@@ -35,18 +35,18 @@ After making changes to the bootstrapped configs, it's time to run the apps on t
 ```
 kubectl apply -f k8s/db.yaml
 kubectl apply -f k8s/pma.yaml
-kubectl apply -f k8s/app.yaml
+kubectl apply -f k8s/webapp.yaml
 
 # verify that our pods are running
 kubectl get pods
-kubectl logs app-757b866576-sdg4q -f
+kubectl logs webapp-757b866576-sdg4q -f
 kubectl proxy # in a separate terminal
 curl http://localhost:8001/api/v1/namespaces/default/pods/pma-7f856985d9-r94n5/proxy/
-curl http://localhost:8001/api/v1/namespaces/default/pods/app-86f5ccd9bc-kms9v/proxy/
+curl http://localhost:8001/api/v1/namespaces/default/pods/webapp-86f5ccd9bc-kms9v/proxy/
 
-# after making changes in the apps code rebuild the image and restart
+# after making changes in the webapp's code rebuild the image and restart
 docker-compose build
-kubectl -n default rollout restart deployment app
+kubectl -n default rollout restart deployment webapp
 ```
 
 ### Run Ingress
@@ -60,6 +60,6 @@ Apply configs to expose phpMyAdmin and the webapp to host via Ingress
 kubectl apply -f k8s/ingress.yaml
 
 # verify that Ingress is serving both the webapp and PMA
-curl http://kubernetes.docker.internal/app/
+curl http://kubernetes.docker.internal/webapp/
 curl http://kubernetes.docker.internal/pma/
 ```
