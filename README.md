@@ -35,6 +35,8 @@ CHANGELOG
 Apply Kubernetes secrets. You should never commit your secrets config into `git`, I've added it here only for illustration purposes
 ```
 kubectl apply -f k8s/secrets.yaml
+
+# verify that secrets are created
 kubectl describe secrets k8s-secrets
 ```
 
