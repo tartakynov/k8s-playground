@@ -28,13 +28,14 @@ Changelog
 - add db service to expose MySQL to other pods in the cluster
 - add ingress resource
 - set phpMyAdmin absolute URL to `http://kubernetes.docker.internal/pma/`, otherwise it does not include the prefix (`pma/`) when redirecting to pages
+- concatenated k8s yamls together (deployment and service)
 
 ### Run on Kubernetes
 After making changes to the bootstrapped configs, it's time to run the apps on the cluster
 ```
-kubectl apply -f k8s/db-data-persistentvolumeclaim.yaml,k8s/db-deployment.yaml
-kubectl apply -f k8s/pma-deployment.yaml,k8s/pma-service.yaml
-kubectl apply -f k8s/app-deployment.yaml,k8s/app-service.yaml
+kubectl apply -f k8s/db.yaml
+kubectl apply -f k8s/pma.yaml
+kubectl apply -f k8s/app.yaml
 
 # verify that our pods are running
 kubectl get pods
@@ -56,7 +57,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 Apply configs to expose phpMyAdmin and the webapp to host via Ingress
 ```
-kubectl apply -f k8s/ingress-resource.yaml
+kubectl apply -f k8s/ingress.yaml
 
 # verify that Ingress is serving both the webapp and PMA
 curl http://kubernetes.docker.internal/app/
