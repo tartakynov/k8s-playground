@@ -25,22 +25,19 @@ spec:
     spec:
       containers:
       - env:
-        - name: APPLICATION_SECRET
-          value: p4EJZg5rzl1xDSAMdGJfLUXKrFYozhrEpl5WSV4quyNouQPAtvlTFXwQBWE8J1wX
         - name: DB_HOST
           value: db:3306
         - name: DB_NAME
           value: mydb
-        - name: DB_PASSWORD
-          value: mypassword
-        - name: DB_USER
-          value: myuser
         image: k8s-playground-webapp:latest
         imagePullPolicy: Never
         name: webapp
         ports:
         - containerPort: 9000
         resources: {}
+        envFrom:
+          - secretRef:
+              name: k8s-secrets
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null

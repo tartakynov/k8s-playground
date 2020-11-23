@@ -43,12 +43,6 @@ spec:
         - env:
             - name: MYSQL_DATABASE
               value: mydb
-            - name: MYSQL_PASSWORD
-              value: mypassword
-            - name: MYSQL_ROOT_PASSWORD
-              value: root
-            - name: MYSQL_USER
-              value: myuser
           image: mysql:5.7
           imagePullPolicy: ""
           name: db
@@ -56,6 +50,9 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: db-data
+          envFrom:
+            - secretRef:
+                name: k8s-secrets
       restartPolicy: Always
       serviceAccountName: ""
       volumes:

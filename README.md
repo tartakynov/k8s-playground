@@ -29,6 +29,14 @@ CHANGELOG
 - expose MySQL to other pods in the cluster: add db service in `db.yaml`
 - set phpMyAdmin absolute URL to `http://kubernetes.docker.internal/pma/` with environment variable, otherwise it will not include the prefix `/pma/` when self-redirecting to pages
 - expose phpMyAdmin and the webapp to host via Ingress: add `ingress.yaml`
+- add secrets
+
+### Secrets
+Apply Kubernetes secrets. You should never commit your secrets config into `git`, I've added it here only for illustration purposes
+```
+kubectl apply -f k8s/secrets.yaml
+kubectl describe secrets k8s-secrets
+```
 
 ### Run our apps on Kubernetes
 After making changes to the bootstrapped configs, it's time to run the apps on the cluster
