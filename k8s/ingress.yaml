@@ -20,10 +20,10 @@ spec:
                 name: pma
                 port:
                   number: 8080
-          - path: /app(/|$)(.*)
+          - path: /webapp(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: app
+                name: webapp
                 port:
                   number: 9000

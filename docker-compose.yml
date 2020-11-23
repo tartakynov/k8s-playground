@@ -28,7 +28,7 @@ services:
       - db
     build:
       context: ./webapp
-    image: k8s-playground-app:latest
+    image: k8s-playground-webapp:latest
     ports:
       - "9000:9000"
     restart: always
