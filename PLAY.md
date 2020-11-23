@@ -1,7 +1,7 @@
 ### Dockerizing Play application to run inside Kubernetes
 
 These are the steps I took to dockerize the Play app
-- I initialized a Play app from this [archetype](<https://github.com/playframework/play-scala-isolated-slick-example/>)
+- I bootstrapped a Play app from this [archetype](<https://github.com/playframework/play-scala-isolated-slick-example/>)
 - added MySQL connector and left h2database for tests
 - added a production config file overriding the default `application.conf`, and left `application.conf` with the configuration for the test environment
 - added Play secret to prod config. Otherwise, the app will not start in prod mode
