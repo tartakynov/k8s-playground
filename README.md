@@ -10,7 +10,7 @@ We'll be running the following apps on Kubernetes
   - the web app will be available via http://kubernetes.docker.internal/webapp/
   - phpMyAdmin will be available via http://kubernetes.docker.internal/pma/
 
-### Build
+### Prepare k8s configs
 Docker-compose prepares the Docker images used in this project
 ```
 docker-compose build
