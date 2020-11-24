@@ -61,3 +61,21 @@ spec:
     io.kompose.service: pma
 status:
   loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-pma
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /pma(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: pma
+                port:
+                  number: 8080
