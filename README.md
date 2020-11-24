@@ -22,8 +22,7 @@ curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-
 ./kompose convert -o k8s/
 ```
 
-### Update the configs
-CHANGELOG
+Here's the log of changes on the configs after bootstrapping them with kompose
 - concatenate k8s yamls together (deployment and service)
 - prevent Kubernetes from looking up the webapp's image in the remote Docker registry since it's built locally
 - expose MySQL to other pods in the cluster: add db service in `db.yaml`
@@ -31,8 +30,8 @@ CHANGELOG
 - expose phpMyAdmin and the webapp to host via Ingress
 - add secrets
 
-### Secrets
-Apply Kubernetes secrets. You should never commit your secrets config into `git`, I've added it here only for illustration purposes
+### Run our apps on Kubernetes
+After making changes to the bootstrapped configs, it's time to run the apps on the cluster. First, we need to apply Kubernetes secrets. You should never commit your secrets config into `git`, I've added it here only for illustration purposes
 ```
 kubectl apply -f k8s/secrets.yaml
 
@@ -40,8 +39,7 @@ kubectl apply -f k8s/secrets.yaml
 kubectl describe secrets k8s-secrets
 ```
 
-### Run our apps on Kubernetes
-After making changes to the bootstrapped configs, it's time to run the apps on the cluster. First, we need to initialize Ingress in the Docker for Mac cluster
+then initialize Ingress in the Docker for Mac cluster
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
 ```
