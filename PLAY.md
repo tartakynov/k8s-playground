@@ -6,6 +6,7 @@ These are the steps I took to dockerize the Play app
 - added a production config file overriding the default `application.conf`, and left `application.conf` with the configuration for the test environment
 - added Play secret to prod config. Otherwise, the app will not start in prod mode. Please never bake real production secrets into docker images!
 - added `kubernetes.docker.internal` (Ingress host) to allowed hosts in prod config. Otherwise, the app will not work behind Ingress
+- set `play.http.context` to `/webapp/`, otherwise it will not include the prefix `/webapp/` when self-redirecting to pages
 - enabled evolutions auto-apply, otherwise the app will not start in prod mode if DB is not initialized
 - downloaded `sbt` script from https://github.com/paulp/sbt-extras into `scripts/` folder
 - prepared a Dockerfile based on `openjdk:8-jdk-alpine`. We need JDK to compile the app, JRE will not work
