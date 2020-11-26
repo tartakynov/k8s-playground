@@ -11,3 +11,4 @@ These are the steps I took to dockerize the Play app
 - downloaded `sbt` script from https://github.com/paulp/sbt-extras into `scripts/` folder
 - prepared a Dockerfile based on `openjdk:8-jdk-alpine`. We need JDK to compile the app, JRE will not work
 - used `sbt assembly` plugin to download dependencies and precompile the app into a production-ready fatjar during Docker build
+- for debugging Ingress I've also added an endpoint which returns raw request headers.
